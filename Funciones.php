@@ -264,14 +264,7 @@ public static function dump($data, $chat_id = null)
 }
 function msj_a_admins_php(   $quien, $msg )
 {
-$bot_api_key  ='791685879:AAG9VU4J3cC4tCBU_Y9-1muJhOCz3rVg8qU';
-$bot_username = '@Crlp_dev_bot';
 
-$bot_api_key  ='779722782:AAHI9J9x5hhM6vUo9bsFZKr97qD-pYIwGLs';
-$bot_username = '@sportsmanbotcrlpbot';
-
-$bot_api_key  = "676438755:AAG3QBJ5owYiwMjV2wiluXIJB5DGxFyjKbY";
-$bot_username = '@Buchonbot';
 
 $chatIds = array("662767623","480434336"); // Los destinatarios 
 
@@ -289,10 +282,7 @@ return (  $obj->{'ok'} ) ;
 function debug_a_admins_php(   $quien, $msg )
 {
 
-$bot_api_key  = "676438755:AAG3QBJ5owYiwMjV2wiluXIJB5DGxFyjKbY";
-$bot_username = '@Buchonbot';
-
-$chatIds = array("662767623","480434336"); // Los destinatarios 
+//$chatIds = array("662767623","480434336"); // Los destinatarios 
 
 foreach ($chatIds as $chatId) {
 	$data = array(   'chat_id' => $chatId,
