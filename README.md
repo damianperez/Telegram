@@ -10,11 +10,7 @@ Idea
 
    MEnucommand -> the command to 'start' the menu
    Functions
-       function armo_menu( $level ) ---> Initialization of menues an level 
+      function armo_menu( $level ) ---> Initialization of menues an level 
       function botones_reply( $level ) --> callbackquery call  it . return the new inlinekeyboard
-                                           params 
-                                                cmd, cmd
-                                                mnu, level
                                            
-          
      
