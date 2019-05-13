@@ -27,21 +27,10 @@ use Longman\TelegramBot\Funciones;
  error_reporting(E_ERROR);
 class CallbackqueryCommand extends SystemCommand
 {
-    /**
-     * @var string
-     */
+    
     protected $name = 'callbackquery';
 
-    /**
-     * @var string
-     */
     protected $description = 'Reply to callback query';
-
-    /**
-     * @var string
-     */
-    protected $version = '1.1.1';
-
     /**
      * Command execute method
      *
@@ -60,8 +49,10 @@ class CallbackqueryCommand extends SystemCommand
 		$chat    = $message->getChat();
 		$user    = $message->getFrom();
 		$user_id    = $message->getFrom()->getId();
+		$chat_id =  $this->getCallbackQuery()->getMessage()->getChat()->getId();
 		
-
+		
+		
 		list($func, $par, $par2 ) = explode(";", $callback_data);
 		/*Request::answerCallbackQuery([
 					'callback_query_id'    => $callback_query_id,
@@ -76,26 +67,32 @@ class CallbackqueryCommand extends SystemCommand
 					'message_id' => $callback_query->getMessage()->getMessageId(),
 					'text'       => 'te devolvi la category'. $par,  
 				];
+		$this->Conversation = new Conversation($user_id, $chat_id, $par);
 		switch ($func) {
 			case "mnu":
 			 	 $texto=Funciones::titulo_menu( $par );
-				  $data['text']=$texto;
+				 $data['text']=$texto;
 				 $data['callback_query_id'] = $callback_query_id;
 				 $data['message_id']  = $callback_query->getMessage()->getMessageId();
 				 Request::answerCallbackQuery($data);
   
 				$reply_markup=Funciones::botones_reply( $par );
+				//Menu title
 				$data['text']=Funciones::titulo_menu( $par );
 				$data['reply_markup']= $reply_markup; 
 				return Request::editMessageText($data);
 				//return Request::sendMessage($data); 
 				  break;				
 			 	  
-			case "cmd":
-			 	  $this->telegram->executeCommand($par);
-				 // return $this->telegram->executeCommand('iMenubutton');
+			case "cmd":				  
+					$data['text']="Ejecutamos $par";
+					$data['callback_query_id'] = $callback_query_id;
+					$data['message_id']  = $callback_query->getMessage()->getMessageId();
+					Request::answerCallbackQuery($data);
+					return $this->telegram->executeCommand($par);				  
 				  break;
 			case "Lng":
+				        //Translations
 					$f=new Funciones();
 			 		$f->set_lenguaje_actual($par,$par2 );
 					$text =  $f->get_lenguaje_actual($par );
@@ -109,11 +106,11 @@ class CallbackqueryCommand extends SystemCommand
 					'message_id' => $callback_query->getMessage()->getMessageId(),
 					'text'       =>$text,  
 				]);*/
-				 	return $this->telegram->executeCommand('iMenubutton');
+				 	//return $this->telegram->executeCommand('iMenubutton');
 			 	   break;
 				
 			default:
-       			  return $this->telegram->executeCommand('iMenubutton');
+       			  //return $this->telegram->executeCommand('iMenubutton');
 				 return Request::editMessageText([
 					'chat_id'    => $callback_query->getMessage()->getChat()->getId(),
 					'message_id' => $callback_query->getMessage()->getMessageId(),
@@ -126,18 +123,4 @@ class CallbackqueryCommand extends SystemCommand
 		return Request::emptyResponse();
 		
     }
-	/*
-	ds
-	dsds
-	dsdsdsa
-	ds
-	dss
-	scandirs
-	gc_collect_cyclesfd
-	ghtr
-	scandirdgs
-	hsd
-	sdfh
-	sdfhh
-	*/
 }
