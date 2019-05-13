@@ -9,12 +9,9 @@ use Longman\TelegramBot\Request;
 
 use Longman\TelegramBot\Entities\InlineKeyboard;
 use Longman\TelegramBot\Entities\InlineKeyboardButton;
- 
+use Translation\Translation; 
 use Longman\TelegramBot\Funciones;
-
-
 error_reporting(E_ALL);
-
 
 class MenuCommand extends UserCommand
 {
@@ -54,15 +51,21 @@ class MenuCommand extends UserCommand
            
         ];
 		 
- 		$f=new Funciones();
+	  	$f=new Funciones();
+	  	$lenguaje_actual= $f->get_lenguaje_actual( $user_id );
+	  	Translation::forceLanguage($lenguaje_actual);
+		
+	  	
 		$data['text'] = Funciones::titulo_menu( 'M' );
 		$reply_markup=Funciones::botones_reply( 'M' ); 
 
  		$data['reply_markup']= $reply_markup; 
-
-		//  Funciones::debug_a_admins_php('yo',$reply_markup );
+        
+		
+	  //Funciones::debug_a_admins_php('yo',$reply_markup );
 
 		return Request::sendMessage($data); 
        
     }
 }
+
