@@ -1,28 +1,27 @@
 # Telegram Menu
 Telegram Inlinne Keyboard Menu 
 
-Development
 Facts
-  A buttons menu:
-  each Bm can return to caller menu
-  each Bm has own rows and cols configuration
+  Button menu:
+   - each Bm can return to caller menu
+   - each Bm has own rows and cols configuration
   
-  the buttons have caption and action.
+  - the buttons have caption and action.
    
-  the action can be 
+  - the action can be 
         cmd      --> run a command 
         mnu      --> Displays a new menu button
         url      
         text
         login_url
           
-        callbackquerycmd receive the action in a switch
+  - callbackquerycmd receive the action in a switch and parse others params 
         
 Bmnu.php is a class that
       creates and returns a set of buttons 
       ready to be assigned to $data['reply_markup']
       
-BmnuCommand : Command for manipuate menus and to 'start' the first default menu 
+BmnuCommand : Command for create menus and to 'start' the first default menu 
 
 Usage: 
   /bmnu
