@@ -245,19 +245,19 @@ Last update: 09.12.2019 13:04
 					'message_id' => $callback_query->getMessage()->getMessageId(),
 					  
 				];
-		 $data['text']='Ingresamos a :'.$func.';'.$par1.';'.$par2.';'.$par3.'';
-		 
+		 $data['text']='Ingresamos a :'.$func.';'.$par1.';'.$par2.';'.$par3.'';		 
 		//Funciones::dump(   $message, 662767623 ); 
 		 $data['callback_query_id'] = $callback_query_id;
 		 $data['message_id']  = $callback_query->getMessage()->getMessageId();
-		 Request::answerCallbackQuery($data);	
+		 //Request::answerCallbackQuery($data);	
+		 
 		 $actual_foto = __DIR__.'/../imagenes/weather/owm.png';
 		switch ($func) {
 			case "bmnu":				 
 			     /* LLama a un menú. Como se supone que viene de un menú, ya tiene que tener foto
 				 Faltaría agregar que foto lleva ese menú con ->getfoto y getcaption
 				 */
-				 //Func bmnu - ITM - PZA - 26 - ""'
+				 //Func bmnu - ITM - WEATHER - 26 - ""'
 				 $data['parse_mode'] = 'HTML';
 				 $data['text']=$texto;
 				 $data['callback_query_id'] = $callback_query_id;
@@ -284,7 +284,10 @@ Last update: 09.12.2019 13:04
 				  break;			
 					
 			case "pag":
-			     /* Tiene un tiem seleccionado, pasar al proximo  ( par1 no se usa?*/				 
+			     /* Tiene un tiem seleccionado, pasar al proximo  ( par1 no se usa?*/			
+				 // pag,WEATHER,4
+				$data['text']='showing pag '.$par2.'';		  
+				Request::answerCallbackQuery($data);					 
 							 
 				$data['parse_mode'] = 'HTML';
 				$data['callback_query_id'] = $callback_query_id;
@@ -298,7 +301,7 @@ Last update: 09.12.2019 13:04
 					caption
 					reply_markup
 					
-					Cuando llamo a un mnu como PZA me tiene que devolver las 3 cosas.
+					Cuando llamo a un mnu como WEATHER me tiene que devolver las 3 cosas.
 					Actualmente solo devuelve reply_markup y el resto se hace a mano
 					Si no se hace esto, no se puede llamar al menu desde otros lugars.
 					Implementar metodo getmenuphoto y getmenucaption
