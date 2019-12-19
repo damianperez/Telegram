@@ -28,21 +28,16 @@ Usage:
   
 
   
- 
- 
-inside callbackquery
-      $pizza  = $callback_data;
-		$porciones = explode(";", $pizza);
-		$i=0;
-		foreach ( $porciones as $parametro )
-		{	
-			if ( $i == 0 ) $func = $parametro;			
-			$var = 'par'.$i;
-			$$var = $parametro;
-			$i++;
-		}
- // now we have $par1,$par2..........
-
+inside callbackquery 
+	$pizza = $callback_data; 
+	$porciones = explode(";", $pizza); 
+	$i=0; foreach ( $porciones as $parametro ) { 
+		if ( $i == 0 ) $func = $parametro; 
+		$var = 'par'.$i; 
+		$$var = $parametro; $i++; 
+		} 
+	// now we have $par1,$par2..........
+	
 
    case "bmnu":	// the action was bmnu;WEATHER
    
