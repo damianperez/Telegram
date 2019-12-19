@@ -2,21 +2,87 @@
 Telegram Inlinne Keyboard Menu 
 
 Development
-Idea 
-   calls: the buttons have caption and action.
+Facts
+  A buttons menu:
+  each Bm can return to caller menu
+  each Bm has own rows and cols configuration
+  
+  the buttons have caption and action.
    
-          the action can be cmd or mnu
+  the action can be 
+        cmd      --> run a command 
+        mnu      --> Displays a new menu button
+        url      
+        text
+        login_url
           
-          callbackquerycmd receive cmd or mnu with parameter
+        callbackquerycmd receive the action in a switch
         
+Bmnu.php is a class that
+      creates and returns a set of buttons 
+      ready to be assigned to $data['reply_markup']
+      
+BmnuCommand : Command for manipuate menus and to 'start' the first default menu 
 
-   MEnucommand -> the command to 'start' the menu
+Usage: 
+  /bmnu
+  
+
+  
+ 
+ 
+inside callbackquery
+      $pizza  = $callback_data;
+		$porciones = explode(";", $pizza);
+		$i=0;
+		foreach ( $porciones as $parametro )
+		{	
+			if ( $i == 0 ) $func = $parametro;			
+			$var = 'par'.$i;
+			$$var = $parametro;
+			$i++;
+		}
+ // now we have $par1,$par2..........
+
+
+   case "bmnu":	// the action was bmnu;WEATHER
    
+				 $data['parse_mode'] = 'HTML';				
+				 $data['callback_query_id'] = $callback_query_id;
+				 $data['message_id']  = $callback_query->getMessage()->getMessageId();
+				
+				$menu = BmnuCommand::armar_menu( $par1, $par2, $par3 );
+            $data['reply_markup']= $menu->show(); 
+				
+            /*
+            at this point, reply_markup have all buttons we need
+            add text or photo or whatever and 
+            return
+            */
+            $data['text']= ......
+				//return Request::editMessageMedia($data);				
+				//return Request::sendMessage($data); 
+   
+   case "pag":   // Wants to paginating, sending menu name and page number
+			     
+				$data['text']='showing pag '.$par2.'';		  
+				Request::answerCallbackQuery($data);					 
+							 
+				$data['parse_mode'] = 'HTML';
+				$data['callback_query_id'] = $callback_query_id;
+				$data['message_id']  = $callback_query->getMessage()->getMessageId();		
+            
+            
+				$menu = BmnuCommand::armar_menu($cat,intval($par2),0);				
+				$menu->actual_item = $nro;
+				$menu->item_id = $nro;
+				
+				$data['reply_markup']= $menu->show(); 
+             $data['text']= ......
+				//return Request::editMessageMedia($data);				
+				//return Request::sendMessage($data); 
+            
+            
+            
    Functions
-   
-      function armo_menu( $level ) ---> Initialization of menues an level 
-      
-      function botones_reply( $level ) --> callbackquery call  it . return the new inlinekeyboard
-      
-                                           
      
